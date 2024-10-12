@@ -41,4 +41,4 @@ Moska is a tool to make static pages using markdown and deploy them to github pa
 - **Deploy on push**: Moska includes a workflow to deploy to github pages on push, creating a branch named `gh-pages`.
 - **HTML compatible**: You can write HTML directly in your markdown files and it works just fine.
 - **Math block**: Write math block using `$$` and `$`.
-- **Emoji**: Try `:heart:` in your md files :heart:
+- **Emoji**: Try <code>\:heart\:</code> in your md files :heart:
