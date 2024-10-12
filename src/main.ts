@@ -40,6 +40,7 @@ async function mdToHtml(markdownPath: string): Promise<void> {
           top: 0;
           left: 0;
           width: 100%;
+          height: auto;
           margin: 0 auto;
           padding:45px;
           padding-left: 20%;
