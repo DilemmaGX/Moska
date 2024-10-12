@@ -1,0 +1,24 @@
+name: Build and Deploy
+on: [push]
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Deno 🦕
+        uses: denoland/setup-deno@v2
+        with:
+            deno-version: v2.x
+
+      - name: Install and Build 🔧
+        run: |
+            deno task build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
