@@ -2,29 +2,47 @@ import { walk } from "https://deno.land/std@0.170.0/fs/walk.ts";
 import { ensureDir } from "https://deno.land/std@0.170.0/fs/ensure_dir.ts";
 import { dirname, join } from "https://deno.land/std@0.170.0/path/mod.ts";
 import { emptyDir } from "https://deno.land/std@0.170.0/fs/empty_dir.ts";
-import MarkdownIt from "npm:markdown-it";
-import MarkdownItGitHubAlerts from "npm:markdown-it-github-alerts";
-import { full as emoji } from 'npm:markdown-it-emoji'
+import { CSS, render } from "jsr:@deno/gfm";
 
-const md = new MarkdownIt({
-  html: true,
-  linkify: true
-}).use(MarkdownItGitHubAlerts).use(emoji);
+import "npm:prismjs@1.29.0/components/prism-diff.js";
+import "npm:prismjs@1.29.0/components/prism-javascript.js";
+import "npm:prismjs@1.29.0/components/prism-typescript.js";
+import "npm:prismjs@1.29.0/components/prism-jsx.js";
+import "npm:prismjs@1.29.0/components/prism-tsx.js";
+import "npm:prismjs@1.29.0/components/prism-css.js";
+import "npm:prismjs@1.29.0/components/prism-cshtml.js";
+import "npm:prismjs@1.29.0/components/prism-markdown.js";
+import "npm:prismjs@1.29.0/components/prism-json.js";
+import "npm:prismjs@1.29.0/components/prism-xml-doc.js";
+import "npm:prismjs@1.29.0/components/prism-sql.js";
+import "npm:prismjs@1.29.0/components/prism-bash.js";
+import "npm:prismjs@1.29.0/components/prism-python.js";
+import "npm:prismjs@1.29.0/components/prism-java.js";
+import "npm:prismjs@1.29.0/components/prism-c.js";
+import "npm:prismjs@1.29.0/components/prism-cpp.js";
+import "npm:prismjs@1.29.0/components/prism-csharp.js";
+import "npm:prismjs@1.29.0/components/prism-php-extras.js";
+import "npm:prismjs@1.29.0/components/prism-ruby.js";
+import "npm:prismjs@1.29.0/components/prism-go.js";
+import "npm:prismjs@1.29.0/components/prism-swift.js";
+import "npm:prismjs@1.29.0/components/prism-kotlin.js";
+import "npm:prismjs@1.29.0/components/prism-rust.js";
+
+import { emojify } from 'npm:node-emoji'
 
 async function mdToHtml(markdownPath: string): Promise<void> {
   const content = await Deno.readTextFile(markdownPath);
-  const html = md.render(content);
+  const html = render(emojify(content), { allowMath: true, allowIframes: true });
 
   const relativePath = markdownPath.substring(Deno.cwd().length + 4);
   const outputPath = join("dist", relativePath.replace(".md", ".html"));
   await ensureDir(dirname(outputPath));
 
   const titleMatch = html.match(/<h1>(.*?)<\/h1>/i);
-  let title = "Markdown Preview";
+  let title = "Made with Moska";
   if (titleMatch && titleMatch.length > 1) {
     title = titleMatch[1];
   }
-
   const template = `
     <!DOCTYPE html>
     <html lang="en">
@@ -52,12 +70,14 @@ async function mdToHtml(markdownPath: string): Promise<void> {
             padding: 15px;
           }
         }
+        ${CSS}
       </style>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/katorlys/prism-theme-github/themes/prism-theme-github-light.css">
     </head>
     <body>
-      <article class="markdown-body">
+      <main data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" class="markdown-body">
         ${html}
-      </article>
+      </main>
     </body>
     <script>console.log("Made with Moska")</script>
     </html>
