@@ -38,11 +38,12 @@ async function mdToHtml(markdownPath: string): Promise<void> {
   const outputPath = join("dist", relativePath.replace(".md", ".html"));
   await ensureDir(dirname(outputPath));
 
-  const titleMatch = html.match(/<h1>(.*?)<\/h1>/i);
-  let title = "Made with Moska";
+  const titleMatch = content.match(/^(.*?)(?=\n|$)/s);
+  let title = "Made with Moska :heart:";
   if (titleMatch && titleMatch.length > 1) {
-    title = titleMatch[1];
+    title = titleMatch[1].trim();
   }
+  title = emojify(title);
   const template = `
     <!DOCTYPE html>
     <html lang="en">
