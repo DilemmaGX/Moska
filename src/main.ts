@@ -57,7 +57,12 @@ const style = `
 
 async function mdToHtml(markdownPath: string): Promise<void> {
   const content = await Deno.readTextFile(markdownPath);
-  const html = render(emojify(content), { allowMath: true, allowIframes: true });
+  const html = render(emojify(content), {
+    allowMath: true,
+    allowIframes: true,
+    // Recommended to be false. If you wish to add features like buttons, you can change it to true.
+    disableHtmlSanitization: false
+  });
 
   const relativePath = markdownPath.substring(Deno.cwd().length + 4);
   const outputPath = join("dist", relativePath.replace(".md", ".html"));
@@ -99,12 +104,15 @@ async function main() {
   if (BUILD) console.log(emojify(":cd: Parsing..."));
   for await (const walkEntry of walk(Deno.cwd() + "/md")) {
     if (walkEntry.isFile && walkEntry.name.endsWith(".md")) {
-      console.log(emojify(":coffee: Processing file"), walkEntry.path);
+      if (BUILD) console.log(emojify(":coffee: Processing file"), walkEntry.path);
       await mdToHtml(walkEntry.path);
     }
   }
   for await (const walkEntry of walk(Deno.cwd() + "/dist")) {
-    if(walkEntry.isFile)Deno.writeTextFile(walkEntry.path, await minify(walkEntry.path))
+    if (walkEntry.isFile) {
+      if (BUILD) console.log(emojify(":bell: Cleaning file"), walkEntry.path);
+      Deno.writeTextFile(walkEntry.path, await minify(walkEntry.path))
+    }
   }
   if (BUILD) console.log(emojify(":rocket: Ready to deploy"));
 }

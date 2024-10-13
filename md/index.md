@@ -7,6 +7,8 @@ Moska is a tool to make static pages using markdown and deploy them to github pa
 1. Use this template to create your copy of this repo
 2. Edit files in the `md/` folder. Recommended to include `index.md` (generates `index.html`).
 
+Read the [documentation](./doc/) for more details.
+
 > [!TIP]
 > Remember, your url shouldn't be directing to a `.md` file. Instead, try to direct to the `.html` file after generating.
 
