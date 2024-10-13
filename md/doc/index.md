@@ -68,14 +68,14 @@ Regular:
 ```
 
 [Moska](https://github.com/DilemmaGX/Moska)
->
+
 With title:
 ```markdown
 [Moska](https://github.com/DilemmaGX/Moska "Moska")
 ```
 
 [Moska](https://github.com/DilemmaGX/Moska "Moska")
->
+
 Navigating:
 ```markdown
 [Links](#links)
@@ -102,7 +102,7 @@ Inline:
 ```
 
 `console.log("Hello World")`
->
+
 Block:
 ```markdown
 ‎```javascript
@@ -150,7 +150,7 @@ console.log("World");
 - [ ] An uncompleted task
     - [x] A completed task
 ```
->
+
 - [ ] An uncompleted task
     - [x] A completed task
 
