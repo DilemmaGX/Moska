@@ -31,8 +31,6 @@ import "npm:prismjs@1.29.0/components/prism-rust.js";
 
 import { emojify } from 'npm:node-emoji'
 
-import sanitizeHtml from 'npm:sanitize-html';
-
 const BUILD = Deno.args.includes("build") || Deno.args.includes("test");
 
 async function mdToHtml(markdownPath: string): Promise<void> {
@@ -83,7 +81,7 @@ async function mdToHtml(markdownPath: string): Promise<void> {
     </head>
     <body>
       <main data-color-mode="auto" data-light-theme="light" data-dark-theme="dark" class="markdown-body">
-        ${sanitizeHtml(html)}
+        ${html}
       </main>
     </body>
     <script>console.log("Made with Moska")</script>
