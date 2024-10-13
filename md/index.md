@@ -13,7 +13,7 @@ Moska is a tool to make static pages using markdown and deploy them to github pa
 ## Supported Features
 
 - **Basic markdown**: You can write your content in markdown and Moska will convert it into a static HTML page.
-- **Feature [#16925](https://github.com/orgs/community/discussions/16925)**: We support discussions and community engagement.
+- **Feature [#16925](https://github.com/orgs/community/discussions/16925)**: Notes, tips, warnings, important, and cautions.
 - **Prism**: Code snippets in your markdown files will be highlighted with Prism, supporting the following languages:
   - JavaScript
   - TypeScript
