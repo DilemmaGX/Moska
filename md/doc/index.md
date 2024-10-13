@@ -229,7 +229,7 @@ console.log("World");
 ### Hotkey
 
 ```markdown
-    <kbd>⌘F</kbd>
+<kbd>⌘F</kbd>
 ```
 
 <kbd>⌘F</kbd>
